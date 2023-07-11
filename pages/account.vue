@@ -1,7 +1,7 @@
 <template>
   <section>
     <div>
-      <form>
+      <form @submit.prevent="onSubmit">
         <AppInputControl type="email" v-model="email"
           >E-Mail Address</AppInputControl
         >
@@ -22,7 +22,8 @@ import AppInputControl from "~/components/UI/AppInputControl.vue";
 import AppButton from "~/components/UI/AppButton.vue";
 export default {
   name: "AccountPage",
-  layout: "default",
+
+  layout: "log",
   components: {
     AppInputControl,
     AppButton,
@@ -33,6 +34,27 @@ export default {
       email: "",
       password: "",
     };
+  },
+  methods: {
+    onSubmit() {
+      this.$axios
+        .$post(
+          `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.APPLICATION_KEY}`,
+          {
+            email: this.email,
+            password: this.password,
+            returnSecureToken: true,
+          }
+        )
+        .then((result) => {
+          console.log(result);
+        })
+        .catch(
+          (
+            error // Handle error
+          ) => console.error("Error:", error.response.data)
+        );
+    },
   },
 };
 </script>
