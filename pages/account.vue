@@ -37,15 +37,18 @@ export default {
   },
   methods: {
     onSubmit() {
+      let authUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.APPLICATION_KEY}`;
+
+      if (!this.isLogin) {
+        authUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.APPLICATION_KEY}`;
+      }
+
       this.$axios
-        .$post(
-          `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.APPLICATION_KEY}`,
-          {
-            email: this.email,
-            password: this.password,
-            returnSecureToken: true,
-          }
-        )
+        .$post(authUrl, {
+          email: this.email,
+          password: this.password,
+          returnSecureToken: true,
+        })
         .then((result) => {
           console.log(result);
         })
