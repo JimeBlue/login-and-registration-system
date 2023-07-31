@@ -23,7 +23,7 @@ import AppButton from "~/components/UI/AppButton.vue";
 export default {
   name: "AccountPage",
 
-  layout: "log",
+  layout: "guest",
   components: {
     AppInputControl,
     AppButton,

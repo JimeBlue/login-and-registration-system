@@ -3,7 +3,7 @@
 </template>
 <script>
 export default {
-  middleware: "log",
+  middleware: "auth",
   components: {},
   data() {
     return {};

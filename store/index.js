@@ -35,7 +35,11 @@ const createStore = () => {
           );
       },
     },
-    getters: {},
+    getters: {
+      isAuthenticated(state) {
+        return state.token != null;
+      },
+    },
   });
 };
 
